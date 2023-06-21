@@ -88,11 +88,12 @@ body section .panel #search button {
     left: 252px;
     padding: 5px;
     font-size: 16px;
-    cursor: pointer;
+
 }
 
 body section .panel #search button:not([disabled]):hover {
     background-color: #d6d6d6;
+    cursor: pointer;
 }
 
 body section .panel #search button:not([disabled]):active {
