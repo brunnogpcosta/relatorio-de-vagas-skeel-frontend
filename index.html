@@ -62,32 +62,42 @@
 
                     <ul class="position-options">
                         <li id="view-mode-table" class="selected">Tabela</li>
-                        <li id="view-mode-cards">Cards</li>
+                        <li id="view-mode-cards" >Cards</li>
                     </ul>
                 </div>
 
                 <div class="container-data">
-                    <div class="cards">
+
+                    <div class="content-data">
+                        <div class="cards" >
+                        </div>
+
+                        <div class="table">
+                            <table id="table">
+                                <thead>
+                                    <tr>
+                                        <th>Código</th>
+                                        <th>Cargo</th>
+                                        <th>Título</th>
+                                        <th>Descrição</th>
+                                        <th>Nível</th>
+                                        <th>Empresa</th>
+                                        <th>Localização</th>
+                                        <th>Data de Publicação</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="pagination">
+                            <button class="page-link" id="prevBtn" disabled>&laquo;</button>
+                            <p></p>
+                            <button class="page-link" id="nextBtn">&raquo;</button>
+                        </div>
                     </div>
 
-                    <div class="table">
-                        <table id="table">
-                            <thead>
-                                <tr>
-                                    <th>Código</th>
-                                    <th>Cargo</th>
-                                    <th>Título</th>
-                                    <th>Descrição</th>
-                                    <th>Nível</th>
-                                    <th>Empresa</th>
-                                    <th>Localização</th>
-                                    <th>Data de Publicação</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
-                    </div>
 
 
                     <div class="no-data-container">
@@ -114,6 +124,7 @@
     </div>
     <script type="text/javascript" src="./js/index.js"></script>
     <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+    
 
 </body>
 

@@ -340,3 +340,33 @@ tr:hover {
     visibility: visible;
     opacity: 1;
 }
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.pagination button{
+    cursor: pointer;
+}
+
+
+.pagination button:disabled{
+    color: #cfcfcf;
+    cursor: not-allowed;
+}
+
+.pagination p {
+    padding: 0 10px;
+}
+
+.page-link {
+    display: inline-block;
+    padding: 8px 12px;
+    text-decoration: none;
+    color: #000;
+    border: 1px solid #ccc;
+}

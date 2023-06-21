@@ -10,12 +10,15 @@ let experienceCheckboxes;
 let selectedExperiences = [];
 const API_URL = 'http://localhost:3000/positions'
 const API_URL_FILTER = 'http://localhost:3000/positions/filter'
-
+const API_INPUT_TYPES = 'http://localhost:3000/options'
+let page = 1
+let limit = 10
+let totalPage = 10
 
 // MAIN FUNCTION
 const loadData = async () => {
     try {
-        const response = await fetch(API_URL, {
+        const response = await fetch(API_URL + `?page=${1}&limit=${limit}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -23,7 +26,8 @@ const loadData = async () => {
         });
 
         const data = await response.json();
-        drawScreen(data.jobs)
+        totalPage = data.totalPages
+        drawScreen(data)
 
     } catch (error) {
         console.error("Error:", error);
@@ -31,23 +35,26 @@ const loadData = async () => {
 }
 loadData()
 
-const drawScreen = (data) => {
+const drawScreen = async (data) => {
     try {
         let titlePositionCount = document.querySelector('.main-top-title p')
-        titlePositionCount.innerText = `(${data.length})`
-        emptyData(data.length)
-        createLocalesInputs(data);
-        createPositionsInputs(data);
-        createLevelsInputs(data);
+        titlePositionCount.innerText = `(${data.totalItems})`
+        emptyData(data.jobs.length)
+        await createLocalesInputs();
+        await createPositionsInputs();
+        await createLevelsInputs();
 
-        for (const dt of data) {
+        for (const dt of data.jobs) {
             createLineTable(dt);
             createCards(dt);
         }
 
+
         setLocationFilter();
         setPositionsFilter();
         setExperiencesFilter();
+
+        pagination(data.totalPages)
     } catch (error) {
         console.error('Erro:', error);
     }
@@ -183,98 +190,142 @@ const createCards = (dt) => {
     cardsContainer.appendChild(card);
 }
 
-const createLocalesInputs = (dt) => {
-    const locales = [];
+const createLocalesInputs = async () => {
+    try {
+        const response = await fetch(API_INPUT_TYPES + '?type=locale', {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
 
-    dt.forEach(job => {
-        const locale = job.locale;
-        if (!locales.includes(locale)) {
-            locales.push(locale);
-        }
-    });
+        const data = await response.json();
 
-    const fieldset = document.getElementById('locale');
+        const locales = [];
 
-    locales.forEach(locale => {
-        const div = document.createElement('div');
+        data.forEach(locale => {
+            if (!locales.includes(locale)) {
+                locales.push(locale);
+            }
+        });
 
-        const input = document.createElement('input');
-        input.type = 'checkbox';
-        input.id = locale;
-        input.name = locale;
+        const fieldset = document.getElementById('locale');
 
-        const label = document.createElement('label');
-        label.htmlFor = locale;
-        label.textContent = locale;
+        locales.forEach(locale => {
+            const div = document.createElement('div');
 
-        div.appendChild(input);
-        div.appendChild(label);
+            const input = document.createElement('input');
+            input.type = 'checkbox';
+            input.id = locale;
+            input.name = locale;
 
-        fieldset.appendChild(div);
-    });
+            const label = document.createElement('label');
+            label.htmlFor = locale;
+            label.textContent = locale;
+
+            div.appendChild(input);
+            div.appendChild(label);
+
+            fieldset.appendChild(div);
+        });
+
+    } catch (error) {
+        console.error("Error:", error);
+    }
 }
 
-const createPositionsInputs = (dt) => {
-    const positions = [];
+const createPositionsInputs = async () => {
+    try {
+        const response = await fetch(API_INPUT_TYPES + '?type=position', {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
 
-    dt.forEach(job => {
-        const position = job.position;
-        if (!positions.includes(position)) {
-            positions.push(position);
-        }
-    });
+        const data = await response.json();
 
-    const fieldset = document.getElementById('position');
+        const positions = [];
 
-    positions.forEach(position => {
-        const div = document.createElement('div');
+        data.forEach(position => {
+            if (!positions.includes(position)) {
+                positions.push(position);
+            }
+        });
 
-        const input = document.createElement('input');
-        input.type = 'checkbox';
-        input.id = position;
-        input.name = position;
+        const fieldset = document.getElementById('position');
 
-        const label = document.createElement('label');
-        label.htmlFor = position;
-        label.textContent = position;
+        positions.forEach(position => {
+            const div = document.createElement('div');
 
-        div.appendChild(input);
-        div.appendChild(label);
+            const input = document.createElement('input');
+            input.type = 'checkbox';
+            input.id = position;
+            input.name = position;
 
-        fieldset.appendChild(div);
-    });
+            const label = document.createElement('label');
+            label.htmlFor = position;
+            label.textContent = position;
+
+            div.appendChild(input);
+            div.appendChild(label);
+
+            fieldset.appendChild(div);
+        });
+
+    } catch (error) {
+        console.error("Error:", error);
+    }
+
 }
 
-const createLevelsInputs = (dt) => {
-    const levels = [];
+const createLevelsInputs = async () => {
+    try {
+        const response = await fetch(API_INPUT_TYPES + '?type=level', {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
 
-    dt.forEach(job => {
-        const level = job.level;
-        if (!levels.includes(level)) {
-            levels.push(level);
-        }
-    });
+        const data = await response.json();
 
-    const fieldset = document.getElementById('experience');
 
-    levels.forEach(level => {
-        const div = document.createElement('div');
+        const levels = [];
 
-        const input = document.createElement('input');
-        input.type = 'checkbox';
-        input.id = level;
-        input.name = level;
+        data.forEach(level => {
+            if (!levels.includes(level)) {
+                levels.push(level);
+            }
+        });
 
-        const label = document.createElement('label');
-        label.htmlFor = level;
-        label.textContent = level;
+        const fieldset = document.getElementById('experience');
 
-        div.appendChild(input);
-        div.appendChild(label);
+        levels.forEach(level => {
+            const div = document.createElement('div');
 
-        fieldset.appendChild(div);
-    });
+            const input = document.createElement('input');
+            input.type = 'checkbox';
+            input.id = level;
+            input.name = level;
+
+            const label = document.createElement('label');
+            label.htmlFor = level;
+            label.textContent = level;
+
+            div.appendChild(input);
+            div.appendChild(label);
+
+            fieldset.appendChild(div);
+        });
+
+    } catch (error) {
+        console.error("Error:", error);
+    }
+
+
 }
+
 
 
 // LOCATION FILTER
@@ -296,10 +347,12 @@ const setLocationFilter = () => {
                     selectedLocales.splice(index, 1);
                 }
             }
+            page = 1
             handleFilter()
         });
     });
 }
+
 
 
 // POSITIONS INPUTS
@@ -321,12 +374,13 @@ const setPositionsFilter = () => {
                     selectedPositions.splice(index, 1);
                 }
             }
-
+            page = 1
             handleFilter()
         });
     });
 
 }
+
 
 
 // LEVEL INPUT
@@ -348,10 +402,12 @@ const setExperiencesFilter = () => {
                     selectedExperiences.splice(index, 1);
                 }
             }
+            page = 1
             handleFilter()
         });
     });
 }
+
 
 
 //SEARCH INPUT
@@ -360,8 +416,9 @@ let searchString = ""
 
 searchFilter.addEventListener("click", (e) => {
     searchString = document.getElementById("searchString").value
-    if(searchString.length > 0) handleFilter()
+    if (searchString.length > 0) handleFilter()
 })
+
 
 
 // CLEANER FILTER
@@ -386,13 +443,86 @@ removeButton.addEventListener("click", () => {
     selectedLocales = []
     selectedPositions = []
     selectedExperiences = []
-
+    page = 1
     handleFilter()
 })
 
 
+
+
+// WHEN DATA IS EMPTY
+const emptyData = (dataLength) => {
+    const table = document.getElementById("table");
+    const emptyData = document.querySelector(".container-data .no-data-container img")
+    const pagination = document.querySelector(".pagination")
+
+    const exportButton = document.querySelector(".export-button")
+
+
+    if (dataLength) {
+        table.style.display = 'block'
+        emptyData.style.display = 'none'
+        exportButton.style.display = 'block'
+        pagination.style.display = 'flex'
+    } else {
+        table.style.display = 'none'
+        emptyData.style.display = 'block'
+        exportButton.style.display = 'none'
+        pagination.style.display = 'none'
+    }
+}
+
+
+
+// PAGINATION CONFIGS
+const paginationMenu = (totalPages) => {
+    const actualyPage = document.querySelector('.pagination p');
+    actualyPage.innerText = `${page} de ${totalPages}`
+
+    const prevBtn = document.querySelector('#prevBtn');
+    const nextBtn = document.querySelector('#nextBtn');
+
+    if (page === 1) prevBtn.setAttribute('disabled', '');
+    else prevBtn.removeAttribute('disabled');
+
+    if (page === totalPages) nextBtn.setAttribute('disabled', '');
+    else nextBtn.removeAttribute('disabled');
+}
+
+const pagination = (totalPages) => {
+    page = 1
+    const prevBtn = document.querySelector('#prevBtn');
+    const nextBtn = document.querySelector('#nextBtn');
+
+    paginationMenu(totalPages)
+
+    prevBtn.addEventListener('click', () => {
+        page -= 1
+
+        if (page === 1) prevBtn.setAttribute('disabled', '');
+        if (page === totalPages - 1) nextBtn.removeAttribute('disabled');
+
+        paginationMenu(totalPages)
+        handleFilter(page)
+    });
+
+
+    nextBtn.addEventListener('click', () => {
+        page += 1
+
+        if (page === totalPages) nextBtn.setAttribute('disabled', '');
+        if (page === 2) prevBtn.removeAttribute('disabled');
+
+        paginationMenu(totalPages)
+        handleFilter(page)
+    });
+
+}
+
+
+
 // FILTER
-const handleFilter = async () => {
+const handleFilter = async (page = 1) => {
     const payload = {
         searchString,
         selectedLocales,
@@ -401,7 +531,7 @@ const handleFilter = async () => {
     };
 
     try {
-        const response = await fetch(API_URL_FILTER, {
+        const response = await fetch(API_URL_FILTER + `?page=${page}&limit=${limit}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -412,17 +542,22 @@ const handleFilter = async () => {
         const data = await response.json();
 
         const titlePositionCount = document.querySelector('.main-top-title p')
-        titlePositionCount.innerText = `(${data.jobs.length})`
+        titlePositionCount.innerText = `(${data.totalItems})`
 
-        emptyData(data.jobs.length)
+    
 
         let idsToShow = data.jobs.map(function (obj) {
             return obj.id;
         });
 
+
+        const ids = [];
+
         for (var i = 1; i < table.rows.length; i++) {
             var row = table.rows[i];
             var idCell = row.cells[0];
+
+            ids.push(idCell.textContent)
 
             if (idsToShow.includes(idCell.textContent)) {
                 row.style.display = "";
@@ -432,8 +567,14 @@ const handleFilter = async () => {
         }
 
 
+        for (const dt of data.jobs) {
+            if (!ids.includes(dt.id)) {
+                createLineTable(dt);
+                createCards(dt);
+            }
+        }
 
-        const cards = document.querySelectorAll('.card');
+    const cards = document.querySelectorAll('.card');
         cards.forEach(card => {
             const id = card.getAttribute('id');
             if (idsToShow.includes(id)) {
@@ -444,37 +585,46 @@ const handleFilter = async () => {
         });
 
 
+
+        emptyData(data.totalItems)
+        paginationMenu(data.totalPages)
+
     } catch (error) {
         console.error("Error:", error);
     }
 };
 
 
+
+
 // EXPORT TABLE TO EXCEL
-const exportToExcel = () => {
-    const table = document.getElementById("table");
-    const workbook = XLSX.utils.book_new();
-    const worksheet = XLSX.utils.table_to_sheet(table);
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
-    XLSX.writeFile(workbook, "relatorio_de_vagas.xlsx");
-}
+const exportToExcel = async () => {
+    try {
+        const payload = {
+            searchString,
+            selectedLocales,
+            selectedPositions,
+            selectedExperiences,
+        };
 
+        const response = await fetch(API_URL_FILTER, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(payload),
+        });
 
-// WHEN DATA IS EMPTY
-const emptyData = (dataLength) => {
-    const table = document.getElementById("table");
-    const emptyData = document.querySelector(".container-data .no-data-container img")
+        const data = await response.json();
 
-    const exportButton = document.querySelector(".export-button")
+        const worksheet = XLSX.utils.json_to_sheet(data.jobs);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+        XLSX.writeFile(workbook, 'relatorio_de_vagas.xlsx');
 
-
-    if (dataLength) {
-        table.style.display = 'block'
-        emptyData.style.display = 'none'
-        exportButton.style.display = 'block'
-    } else {
-        table.style.display = 'none'
-        emptyData.style.display = 'block'
-        exportButton.style.display = 'none'
+    } catch (error) {
+        console.error("Error:", error);
     }
+
+
 }
