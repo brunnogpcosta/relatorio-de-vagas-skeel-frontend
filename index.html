@@ -32,7 +32,7 @@
                     <fieldset id="search">
                         <legend>Pesquisar</legend>
                         <input type="text" id="searchString" name="searchString">
-                        <button id="search-button"><i class="fa fa-search"></i></button>
+                        <button id="search-button" disabled><i class="fa fa-search"></i></button>
                     </fieldset>
 
                     <fieldset id="locale">
@@ -48,7 +48,7 @@
                     </fieldset>
 
 
-                    <button id="remove-filters">Remover filtros</button>
+                    <button id="remove-filters" disabled>Remover filtros</button>
                 </div>
 
 
@@ -62,14 +62,14 @@
 
                     <ul class="position-options">
                         <li id="view-mode-table" class="selected">Tabela</li>
-                        <li id="view-mode-cards" >Cards</li>
+                        <li id="view-mode-cards">Cards</li>
                     </ul>
                 </div>
 
                 <div class="container-data">
 
                     <div class="content-data">
-                        <div class="cards" >
+                        <div class="cards">
                         </div>
 
                         <div class="table">
@@ -118,13 +118,10 @@
 
         </div>
 
-        <!-- <footer>
-            Onde ficará o rodapé
-        </footer> -->
     </div>
     <script type="text/javascript" src="./js/index.js"></script>
     <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
-    
+
 
 </body>
 

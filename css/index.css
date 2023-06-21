@@ -49,7 +49,6 @@ body section .panel {
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 2px 2px 1px #0000001f;
-    cursor: pointer;
     width: 300px;
     padding: 20px;
 }
@@ -57,20 +56,21 @@ body section .panel {
 
 body section .panel #remove-filters {
     margin-top: 10px;
-    background-color: rgb(180, 180, 180);
+    background-color: rgb(228, 228, 228);
     border: none;
     color: white;
     padding: 10px;
     font-size: 16px;
-    cursor: pointer;
     width: 100%;
 }
 
-body section .panel #remove-filters:hover {
+
+body section .panel #remove-filters:not([disabled]):hover {
     background-color: rgb(141, 141, 141);
+    cursor: pointer;
 }
 
-body section .panel #remove-filters:active {
+body section .panel #remove-filters:not([disabled]):active {
     background-color: rgb(104, 104, 104);
 }
 
@@ -91,15 +91,14 @@ body section .panel #search button {
     cursor: pointer;
 }
 
-body section .panel #search button:hover {
+body section .panel #search button:not([disabled]):hover {
     background-color: #d6d6d6;
 }
 
-body section .panel #search button:active {
+body section .panel #search button:not([disabled]):active {
     background-color: #764582;
-    color: #fff
+    color: #fff;
 }
-
 
 
 body section .panel fieldset {

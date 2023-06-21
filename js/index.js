@@ -1,4 +1,5 @@
 // VARIABLES
+const removeFilters = document.getElementById("remove-filters")
 let localeFieldset
 let localeCheckboxes
 let selectedLocales = [];
@@ -459,7 +460,7 @@ const handleFilter = async (page = 1) => {
         const titlePositionCount = document.querySelector('.main-top-title p')
         titlePositionCount.innerText = `(${data.totalItems})`
 
-    
+
 
         let idsToShow = data.jobs.map(function (obj) {
             return obj.id;
@@ -489,7 +490,7 @@ const handleFilter = async (page = 1) => {
             }
         }
 
-    const cards = document.querySelectorAll('.card');
+        const cards = document.querySelectorAll('.card');
         cards.forEach(card => {
             const id = card.getAttribute('id');
             if (idsToShow.includes(id)) {
@@ -530,6 +531,9 @@ const setLocationFilter = () => {
             }
             page = 1
             handleFilter()
+
+            if (selectedExperiences.length > 0 || selectedPositions.length > 0 || selectedLocales.length > 0) removeFilters.disabled = false
+            else removeFilters.disabled = true
         });
     });
 }
@@ -555,6 +559,8 @@ const setPositionsFilter = () => {
             }
             page = 1
             handleFilter()
+            if (selectedExperiences.length > 0 || selectedPositions.length > 0 || selectedLocales.length > 0) removeFilters.disabled = false
+            else removeFilters.disabled = true
         });
     });
 
@@ -581,6 +587,8 @@ const setExperiencesFilter = () => {
             }
             page = 1
             handleFilter()
+            if (selectedExperiences.length > 0 || selectedPositions.length > 0 || selectedLocales.length > 0) removeFilters.disabled = false
+            else removeFilters.disabled = true
         });
     });
 }
@@ -594,12 +602,17 @@ searchFilter.addEventListener("click", (e) => {
     if (searchString.length > 0) handleFilter()
 })
 
-
 const searchInput = document.getElementById("searchString")
 searchInput.addEventListener("input", (e) => {
     if (e.target.value.length <= 0) searchFilter.disabled = true
     else searchFilter.disabled = false
 })
+
+
+
+
+
+
 
 // EXPORT TABLE TO EXCEL
 const exportToExcel = async () => {
