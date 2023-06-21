@@ -18,12 +18,13 @@ Este é um projeto que visa avaliar as habilidades de um analista de sistemas no
 **Documentação e comentários:** O relatório de vagas é acompanhado de uma documentação clara e concisa que descreve sua funcionalidade, explicando o processo de uso, as opções de filtro disponíveis, as instruções para exportação de dados e outras informações relevantes.
 
 ## Instruções de Uso
-Clone este repositório em sua máquina local.
-Abra o arquivo index.html em um navegador web.
-Aplique os filtros desejados para refinar a visualização das vagas.
-Clique no botão "Exportar para Excel" para salvar os dados exibidos em um arquivo Excel.
-Navegue pela tabela de vagas para visualizar as informações detalhadas de cada vaga.
-Testes
+- Clone este repositório em sua máquina local.
+- Abra o arquivo index.html em um navegador web.
+- Aplique os filtros desejados para refinar a visualização das vagas.
+- Clique no botão flutuante "Exportar para Excel" para salvar os dados exibidos em um arquivo Excel.
+- Navegue pela modos de visualização da lista para visualizar as informações detalhadas de cada vaga.
+
+## Testes
 Foram realizados testes de validação para garantir o correto funcionamento do relatório de vagas em diferentes cenários. Asseguramos que os filtros funcionem adequadamente mesmo quando não preenchidos ou com valores inválidos. Além disso, foram realizados testes de desempenho para verificar a capacidade da aplicação em lidar com grandes volumes de dados.
 
 ## Documentação
