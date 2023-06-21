@@ -61,6 +61,8 @@ const drawScreen = async (data) => {
 }
 
 
+
+
 //VIEW MODE DATA
 const optionsView = document.querySelector('.position-options')
 
@@ -83,6 +85,8 @@ optionsView.addEventListener('click', (e) => {
         viewModeOptionCards.classList.add("selected");
     }
 })
+
+
 
 
 //HTML ELEMENTS CREATION
@@ -328,97 +332,6 @@ const createLevelsInputs = async () => {
 
 
 
-// LOCATION FILTER
-const setLocationFilter = () => {
-    localeFieldset = document.getElementById("locale");
-    localeCheckboxes = localeFieldset.querySelectorAll("input[type='checkbox']");
-
-    selectedLocales = [];
-
-    localeCheckboxes.forEach(function (checkbox) {
-        checkbox.addEventListener("change", function () {
-            if (this.checked) {
-                const selectedLocale = this.nextElementSibling.textContent;
-                selectedLocales.push(selectedLocale);
-            } else {
-                const selectedLocale = this.nextElementSibling.textContent;
-                const index = selectedLocales.indexOf(selectedLocale);
-                if (index > -1) {
-                    selectedLocales.splice(index, 1);
-                }
-            }
-            page = 1
-            handleFilter()
-        });
-    });
-}
-
-
-
-// POSITIONS INPUTS
-const setPositionsFilter = () => {
-    positionFieldset = document.getElementById("position");
-    positionCheckboxes = positionFieldset.querySelectorAll("input[type='checkbox']");
-
-    selectedPositions = [];
-
-    positionCheckboxes.forEach(function (checkbox) {
-        checkbox.addEventListener("change", function () {
-            if (this.checked) {
-                const selectedPosition = this.nextElementSibling.textContent;
-                selectedPositions.push(selectedPosition);
-            } else {
-                const selectedPosition = this.nextElementSibling.textContent;
-                const index = selectedPositions.indexOf(selectedPosition);
-                if (index > -1) {
-                    selectedPositions.splice(index, 1);
-                }
-            }
-            page = 1
-            handleFilter()
-        });
-    });
-
-}
-
-
-
-// LEVEL INPUT
-const setExperiencesFilter = () => {
-    experienceFieldset = document.getElementById("experience");
-    experienceCheckboxes = experienceFieldset.querySelectorAll("input[type='checkbox']");
-
-    selectedExperiences = [];
-
-    experienceCheckboxes.forEach(function (checkbox) {
-        checkbox.addEventListener("change", function () {
-            if (this.checked) {
-                const selectedExperience = this.nextElementSibling.textContent;
-                selectedExperiences.push(selectedExperience);
-            } else {
-                const selectedExperience = this.nextElementSibling.textContent;
-                const index = selectedExperiences.indexOf(selectedExperience);
-                if (index > -1) {
-                    selectedExperiences.splice(index, 1);
-                }
-            }
-            page = 1
-            handleFilter()
-        });
-    });
-}
-
-
-
-//SEARCH INPUT
-const searchFilter = document.getElementById("search-button")
-let searchString = ""
-
-searchFilter.addEventListener("click", (e) => {
-    searchString = document.getElementById("searchString").value
-    if (searchString.length > 0) handleFilter()
-})
-
 
 
 // CLEANER FILTER
@@ -474,6 +387,7 @@ const emptyData = (dataLength) => {
 
 
 
+
 // PAGINATION CONFIGS
 const paginationMenu = (totalPages) => {
     const actualyPage = document.querySelector('.pagination p');
@@ -521,7 +435,8 @@ const pagination = (totalPages) => {
 
 
 
-// FILTER
+
+// FILTERS
 const handleFilter = async (page = 1) => {
     const payload = {
         searchString,
@@ -594,8 +509,97 @@ const handleFilter = async (page = 1) => {
     }
 };
 
+// LOCATION FILTER
+const setLocationFilter = () => {
+    localeFieldset = document.getElementById("locale");
+    localeCheckboxes = localeFieldset.querySelectorAll("input[type='checkbox']");
+
+    selectedLocales = [];
+
+    localeCheckboxes.forEach(function (checkbox) {
+        checkbox.addEventListener("change", function () {
+            if (this.checked) {
+                const selectedLocale = this.nextElementSibling.textContent;
+                selectedLocales.push(selectedLocale);
+            } else {
+                const selectedLocale = this.nextElementSibling.textContent;
+                const index = selectedLocales.indexOf(selectedLocale);
+                if (index > -1) {
+                    selectedLocales.splice(index, 1);
+                }
+            }
+            page = 1
+            handleFilter()
+        });
+    });
+}
+
+// POSITIONS INPUTS
+const setPositionsFilter = () => {
+    positionFieldset = document.getElementById("position");
+    positionCheckboxes = positionFieldset.querySelectorAll("input[type='checkbox']");
+
+    selectedPositions = [];
+
+    positionCheckboxes.forEach(function (checkbox) {
+        checkbox.addEventListener("change", function () {
+            if (this.checked) {
+                const selectedPosition = this.nextElementSibling.textContent;
+                selectedPositions.push(selectedPosition);
+            } else {
+                const selectedPosition = this.nextElementSibling.textContent;
+                const index = selectedPositions.indexOf(selectedPosition);
+                if (index > -1) {
+                    selectedPositions.splice(index, 1);
+                }
+            }
+            page = 1
+            handleFilter()
+        });
+    });
+
+}
+
+// LEVEL INPUT
+const setExperiencesFilter = () => {
+    experienceFieldset = document.getElementById("experience");
+    experienceCheckboxes = experienceFieldset.querySelectorAll("input[type='checkbox']");
+
+    selectedExperiences = [];
+
+    experienceCheckboxes.forEach(function (checkbox) {
+        checkbox.addEventListener("change", function () {
+            if (this.checked) {
+                const selectedExperience = this.nextElementSibling.textContent;
+                selectedExperiences.push(selectedExperience);
+            } else {
+                const selectedExperience = this.nextElementSibling.textContent;
+                const index = selectedExperiences.indexOf(selectedExperience);
+                if (index > -1) {
+                    selectedExperiences.splice(index, 1);
+                }
+            }
+            page = 1
+            handleFilter()
+        });
+    });
+}
+
+//SEARCH INPUT
+const searchFilter = document.getElementById("search-button")
+let searchString = ""
+
+searchFilter.addEventListener("click", (e) => {
+    searchString = document.getElementById("searchString").value
+    if (searchString.length > 0) handleFilter()
+})
 
 
+const searchInput = document.getElementById("searchString")
+searchInput.addEventListener("input", (e) => {
+    if (e.target.value.length <= 0) searchFilter.disabled = true
+    else searchFilter.disabled = false
+})
 
 // EXPORT TABLE TO EXCEL
 const exportToExcel = async () => {
