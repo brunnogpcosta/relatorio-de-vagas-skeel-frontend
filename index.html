@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/global.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>Relatório de Vagas</title>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <ul>
+                <li><img src="./img/logo-skeel.png" alt="logo skeel" width="100"></li>
+                <li>Relatório de vagas</li>
+            </ul>
+        </header>
+
+        <div class="content">
+            <section>
+                <h2>Filtro</h2>
+                <div class="panel">
+
+                    <fieldset id="search">
+                        <legend>Pesquisar</legend>
+                        <input type="text" id="searchString" name="searchString">
+                        <button id="search-button"><i class="fa fa-search"></i></button>
+                    </fieldset>
+
+                    <fieldset id="locale">
+                        <legend>Localização</legend>
+                    </fieldset>
+
+                    <fieldset id="position">
+                        <legend>Cargo</legend>
+                    </fieldset>
+
+                    <fieldset id="experience">
+                        <legend>Nível</legend>
+                    </fieldset>
+
+
+                    <button id="remove-filters">Remover filtros</button>
+                </div>
+
+
+            </section>
+            <main>
+                <div class="main-top">
+                    <div class="main-top-title">
+                        <h2>Vagas</h2>
+                        <p>(0)</p>
+                    </div>
+
+                    <ul class="position-options">
+                        <li id="view-mode-table" class="selected">Tabela</li>
+                        <li id="view-mode-cards">Cards</li>
+                    </ul>
+                </div>
+
+                <div class="container-data">
+                    <div class="cards">
+                    </div>
+
+                    <div class="table">
+                        <table id="table">
+                            <thead>
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Cargo</th>
+                                    <th>Título</th>
+                                    <th>Descrição</th>
+                                    <th>Nível</th>
+                                    <th>Empresa</th>
+                                    <th>Localização</th>
+                                    <th>Data de Publicação</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                    <div class="no-data-container">
+                        <img src="./img/no-data.svg" alt="empty-image">
+                    </div>
+
+                </div>
+
+
+                <div class="export-button">
+                    <div class="tooltip">
+                        <button class="btn" onclick="exportToExcel()"><i class="fa fa-download"></i></button>
+                        <span class="tooltiptext">Exportar para excel</span>
+                    </div>
+
+                </div>
+            </main>
+
+        </div>
+
+        <!-- <footer>
+            Onde ficará o rodapé
+        </footer> -->
+    </div>
+    <script type="text/javascript" src="./js/index.js"></script>
+    <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+
+</body>
+
+</html>
