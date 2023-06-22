@@ -114,7 +114,7 @@ body section .panel fieldset legend {
 }
 
 body main {
-    /* background-color: #518245; */
+    margin-top: 10px;
     color: black;
 }
 
