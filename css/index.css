@@ -116,8 +116,6 @@ body section .panel fieldset legend {
 body main {
     /* background-color: #518245; */
     color: black;
-    padding: 10px;
-    width: 100%;
 }
 
 body main .main-top {
@@ -255,16 +253,7 @@ body main .export-button button {
 
 
 
-table {
-    font-size: 14px;
-    border-collapse: collapse;
-    width: 100%;
-    padding: 5px;
-    border-radius: 8px;
-    background-color: #fff;
-    box-shadow: 2px 2px 1px #0000001f;
-    display: none;
-}
+
 
 .container-data .no-data-container {
     display: flex;
@@ -276,6 +265,17 @@ table {
 
 .container-data .no-data-container img {
     width: 400px;
+}
+
+table {
+    font-size: 14px;
+    border-collapse: collapse;
+    width: 100%;
+    padding: 5px;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 2px 2px 1px #0000001f;
+    display: none;
 }
 
 th,
@@ -349,12 +349,12 @@ tr:hover {
     margin-top: 20px;
 }
 
-.pagination button{
+.pagination button {
     cursor: pointer;
 }
 
 
-.pagination button:disabled{
+.pagination button:disabled {
     color: #cfcfcf;
     cursor: not-allowed;
 }
@@ -369,4 +369,39 @@ tr:hover {
     text-decoration: none;
     color: #000;
     border: 1px solid #ccc;
+}
+
+
+@media (max-width: 767px) {
+
+    body .content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    body section {
+        margin: 0 auto;
+    }
+
+    body main {
+        padding: 25px;
+    }
+
+    table {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    th,
+    td {
+        white-space: nowrap;
+    }
+
+}
+
+@media (min-width: 768px) and (max-width: 991px) {}
+
+@media (min-width: 992px) {
+    /* Insira aqui os estilos desejados para telas grandes */
 }
